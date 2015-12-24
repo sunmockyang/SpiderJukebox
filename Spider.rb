@@ -10,27 +10,27 @@ class Spider
 		@thumbnailURL = ""
 	end
 
-	def self.canSpider?(url)
+	def self.can_spider?(url)
 		return false
 	end
 
-	def getTitle
+	def get_title
 		@title
 	end
 
-	def getArtist
+	def get_artist
 		@artist
 	end
 
-	def getURL
+	def get_URL
 		@url
 	end
 
-	def getThumbnailURL
+	def get_thumbnail_URL
 		@thumbnailURL
 	end
 end
 
 require_relative "Spiders/SoundCloudSpider"
 
-AvailableSpiders = [SoundCloudSpider]
+available_spider_types = [SoundCloudSpider]

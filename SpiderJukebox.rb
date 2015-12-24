@@ -2,20 +2,11 @@ require_relative "Spider"
 
 url = ARGV[0]
 
-# TODO: make spider a nil var and remove parserFound
-spider = Spider.new("")
-parserFound = false
+DecodeSpiderType = available_spider_types.select{|available_spider| available_spider.can_spider?(url)}.first
 
-AvailableSpiders.each{ |availableSpider|
-	if availableSpider.canSpider?(url)
-		parserFound = true
-		spider = availableSpider.new(url)
-		break
-	end
-}
-
-if !parserFound
+if DecodeSpiderType
+	spider = DecodeSpiderType.new(url)
+	puts spider.get_URL
+else
 	puts "No available parsers for: " + url
 end
-
-puts spider.getURL

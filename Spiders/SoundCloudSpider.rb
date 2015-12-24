@@ -5,7 +5,7 @@ class SoundCloudSpider < Spider
 		@url = url
 	end
 
-	def self.canSpider?(url)
+	def self.can_spider?(url)
 		return (URI(url).host == "soundcloud.com")
 	end
 end
