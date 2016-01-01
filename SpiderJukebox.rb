@@ -6,7 +6,7 @@ DecodeParserType = SpiderParser.descendants.select{|available_parser| available_
 
 if DecodeParserType
 	parser = DecodeParserType.new(url)
-	puts parser.to_s
+	puts parser.parse(url).to_s
 else
 	puts "No available parsers for: " + url
 end

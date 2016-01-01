@@ -4,11 +4,6 @@ require "uri"
 
 class SpiderParser
 	def initialize(url)
-		@title = ""
-		@artist = ""
-		@url = url
-		@thumbnailURL = ""
-		@durationMS = 0
 	end
 
 	def self.descendants
@@ -17,6 +12,20 @@ class SpiderParser
 
 	def self.can_parse?(url)
 		return false
+	end
+
+	def parse(url)
+		return SpiderTrack.new("", "", url, "", 0)
+	end
+end
+
+class SpiderTrack
+	def initialize(title, artist, url, thumbnailURL, durationMS)
+		@title = title
+		@artist = artist
+		@url = url
+		@thumbnailURL = thumbnailURL
+		@durationMS = durationMS
 	end
 
 	def to_s
