@@ -1,8 +1,8 @@
-# Spider.rb
+# SpiderParser.rb
 
 require "uri"
 
-class Spider
+class SpiderParser
 	def initialize(url)
 		@title = ""
 		@artist = ""
@@ -14,7 +14,7 @@ class Spider
 		ObjectSpace.each_object(Class).select { |klass| klass < self }
 	end
 
-	def self.can_spider?(url)
+	def self.can_parse?(url)
 		return false
 	end
 
@@ -35,4 +35,4 @@ class Spider
 	end
 end
 
-require_relative "Spiders/SoundCloudSpider"
+require_relative "Parsers/SoundCloudParser"
