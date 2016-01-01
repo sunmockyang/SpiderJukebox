@@ -15,6 +15,7 @@ class SoundCloudSpider < SpiderParser
 		@title = track.title
 		@artist = track.user.username
 		@thumbnailURL = track.artwork_url
+		@durationMS = track.duration
 	end
 
 	def self.can_parse?(url)

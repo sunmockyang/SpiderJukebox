@@ -8,6 +8,7 @@ class SpiderParser
 		@artist = ""
 		@url = url
 		@thumbnailURL = ""
+		@durationMS = 0
 	end
 
 	def self.descendants
@@ -16,6 +17,10 @@ class SpiderParser
 
 	def self.can_parse?(url)
 		return false
+	end
+
+	def to_s
+		return @artist + " - " + @title + " (" + @url + ")"
 	end
 
 	def get_title
