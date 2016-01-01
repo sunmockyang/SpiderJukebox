@@ -20,12 +20,12 @@ class SpiderParser
 end
 
 class SpiderTrack
-	def initialize(title, artist, url, thumbnailURL, durationMS)
-		@title = title
-		@artist = artist
-		@url = url
-		@thumbnailURL = thumbnailURL
-		@durationMS = durationMS
+	def initialize(metadata={})
+		@title = metadata[:title]
+		@artist = metadata[:artist]
+		@url = metadata[:url]
+		@thumbnailURL = metadata[:thumbnailURL]
+		@durationMS = metadata[:durationMS]
 	end
 
 	def to_s

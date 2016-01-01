@@ -17,6 +17,10 @@ class SoundCloudSpider < SpiderParser
 	def parse(url)
 		# call the resolve endpoint with a track url
 		track = @client.get('/resolve', :url => url)
-		return SpiderTrack.new(track.title, track.user.username, url, track.artwork_url, track.duration)
+		return SpiderTrack.new(title:track.title,
+								artist:track.user.username,
+								url:url,
+								thumnailURL:track.artwork_url,
+								durationMS:track.duration)
 	end
 end
