@@ -10,6 +10,10 @@ class Spider
 		@thumbnailURL = ""
 	end
 
+	def self.descendants
+		ObjectSpace.each_object(Class).select { |klass| klass < self }
+	end
+
 	def self.can_spider?(url)
 		return false
 	end
@@ -32,5 +36,3 @@ class Spider
 end
 
 require_relative "Spiders/SoundCloudSpider"
-
-available_spider_types = [SoundCloudSpider]

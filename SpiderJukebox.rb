@@ -2,7 +2,7 @@ require_relative "Spider"
 
 url = ARGV[0]
 
-DecodeSpiderType = available_spider_types.select{|available_spider| available_spider.can_spider?(url)}.first
+DecodeSpiderType = Spider.descendants.select{|available_spider| available_spider.can_spider?(url)}.first
 
 if DecodeSpiderType
 	spider = DecodeSpiderType.new(url)
