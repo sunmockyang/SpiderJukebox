@@ -20,14 +20,13 @@ class SpiderParser
 end
 
 class SpiderTrack
-	@source = nil
-	@title = ""
-	@artist = ""
-	@url = ""
-	@art_url = ""
-	@duration_ms = 0
-
 	def initialize(metadata={})
+		@source = nil
+		@title = ""
+		@artist = ""
+		@url = ""
+		@art_url = ""
+		@duration_ms = 0
 		self.set_metadata(metadata)
 	end
 
