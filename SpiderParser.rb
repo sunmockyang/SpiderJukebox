@@ -20,13 +20,23 @@ class SpiderParser
 end
 
 class SpiderTrack
+	@source = nil
+	@title = ""
+	@artist = ""
+	@url = ""
+	@art_url = ""
+	@duration_ms = 0
+
 	def initialize(metadata={})
-		@source = nil
-		@title = metadata[:title]
-		@artist = metadata[:artist]
-		@url = metadata[:url]
-		@art_url = metadata[:art_url]
-		@duration_ms = metadata[:duration_ms]
+		self.set_metadata(metadata)
+	end
+
+	def set_metadata(metadata={})
+		@title = metadata[:title] || @title
+		@artist = metadata[:artist] || @artist
+		@url = metadata[:url] || @url
+		@art_url = metadata[:art_url] || @art_url
+		@duration_ms = metadata[:duration_ms] || @duration_ms
 	end
 
 	def to_s
