@@ -9,7 +9,7 @@ OptionParser.new do |opt|
 
 	opt.on('-t', '--title=TITLE', "Override the title of the track.") { |title| options[:title] = title }
 	opt.on('-a', '--artist=ARTIST', "Override the artist of the track.") { |artist| options[:artist] = artist }
-	opt.on('-r', '--album-art=ALBUMART', "Override the album art url of the track.") { |album_art| options[:album_art] = album_art }
+	opt.on('-r', '--album_art=ALBUMART', "Override the album art url of the track.") { |art_url| options[:art_url] = art_url }
 	opt.on('-d', '--duration=DURATION', "Override the duration (ms) of the track.") { |duration_ms| options[:duration_ms] = duration_ms }
 	opt.on_tail("-h", "--help", "Show this message") do
 		puts opt
