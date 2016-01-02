@@ -21,6 +21,7 @@ end
 
 class SpiderTrack
 	def initialize(metadata={})
+		@source = nil
 		@title = metadata[:title]
 		@artist = metadata[:artist]
 		@url = metadata[:url]
