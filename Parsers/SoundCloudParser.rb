@@ -21,7 +21,7 @@ class SoundCloudSpider < SpiderParser
 								title:track.title,
 								artist:track.user.username,
 								url:url,
-								thumnailURL:track.artwork_url,
-								durationMS:track.duration)
+								art_url:track.artwork_url,
+								duration_ms:track.duration)
 	end
 end

@@ -25,8 +25,8 @@ class SpiderTrack
 		@title = metadata[:title]
 		@artist = metadata[:artist]
 		@url = metadata[:url]
-		@thumbnailURL = metadata[:thumbnailURL]
-		@durationMS = metadata[:durationMS]
+		@art_url = metadata[:art_url]
+		@duration_ms = metadata[:duration_ms]
 	end
 
 	def to_s
@@ -45,8 +45,12 @@ class SpiderTrack
 		@url
 	end
 
-	def get_thumbnail_URL
-		@thumbnailURL
+	def get_art_URL
+		@art_url
+	end
+
+	def get_duration_ms
+		@duration_ms
 	end
 end
 
