@@ -18,6 +18,7 @@ OptionParser.new do |opts|
 	opts.on('-a', '--artist=ARTIST', "Override the artist of the track.") { |artist| options[:artist] = artist }
 	opts.on('-r', '--album_art=ALBUMART', "Override the album art url of the track.") { |art_url| options[:art_url] = art_url }
 	opts.on('-d', '--duration=DURATION', "Override the duration (ms) of the track.") { |duration_ms| options[:duration_ms] = duration_ms }
+	opts.on('-f', '--force', "Force create track without valid url") { options[:force] = true }
 	opts.on_tail("-h", "--help", "Show this message") do
 		puts opts
 		exit
@@ -25,27 +26,22 @@ OptionParser.new do |opts|
 end.parse!
 
 track = nil
+url = ARGV[0] || ""
 
-if ARGV.empty?
-	# Init a track with the options provided
-	track = SpiderTrack.new()
+DecodeParserType = SpiderParser.descendants.select{|available_parser| available_parser.can_parse?(url)}.first
+if DecodeParserType
+	parser = DecodeParserType.new(url)
+	track = parser.parse(url)
+	track.set_metadata(options)
+elsif !options.empty? && options[:force]
+	# Invalid url but there are options we can use
+	track = SpiderTrack.new(url: url)
 	track.set_metadata(options)
 else
-	# There is a URL in the arguments
-	url = ARGV[0]
-	DecodeParserType = SpiderParser.descendants.select{|available_parser| available_parser.can_parse?(url)}.first
-	if DecodeParserType 
-		parser = DecodeParserType.new(url)
-		track = parser.parse(url)
-		track.set_metadata(options)
-	elsif !options.empty?
-		# Invalid url but there are options we can use
-		# TODO: Flag for force new track despite bad url
-		track = SpiderTrack.new(url: url)
-		track.set_metadata(options)
-	else
-		puts "No available parsers for: " + url
-	end
+	puts "No available parsers for: " + url
 end
 
 # Do something with the track
+if track
+	puts track
+end

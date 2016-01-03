@@ -8,4 +8,5 @@ all:
 	# Flags
 	@ruby SpiderJukebox.rb https://soundcloud.com/futuregirlfriendmusic/i-love-you --title "Song of my People" --artist "Sunmock Yang"
 	@ruby SpiderJukebox.rb -t "Bad Song" -a Unknown http://asdf.com
+	@ruby SpiderJukebox.rb -f -t "Bad Song" -a Unknown http://asdf.com
 	@# @ruby SpiderJukebox.rb -h

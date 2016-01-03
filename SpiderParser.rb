@@ -21,6 +21,7 @@ end
 
 class SpiderTrack
 	def initialize(metadata={})
+		# Maybe I ought to make these fields all in a hash
 		@source = nil
 		@title = ""
 		@artist = ""
