@@ -9,6 +9,7 @@ if ARGV.empty?
 end
 
 options = {}
+force = false
 OptionParser.new do |opts|
 	opts.banner = usage_banner
 	opts.separator ""
@@ -18,7 +19,7 @@ OptionParser.new do |opts|
 	opts.on('-a', '--artist=ARTIST', "Override the artist of the track.") { |artist| options[:artist] = artist }
 	opts.on('-r', '--album_art=ALBUMART', "Override the album art url of the track.") { |art_url| options[:art_url] = art_url }
 	opts.on('-d', '--duration=DURATION', "Override the duration (ms) of the track.") { |duration_ms| options[:duration_ms] = duration_ms }
-	opts.on('-f', '--force', "Force create track without valid url") { options[:force] = true }
+	opts.on('-f', '--force', "Force create track without valid url") { force = true }
 	opts.on_tail("-h", "--help", "Show this message") do
 		puts opts
 		exit
@@ -33,7 +34,7 @@ if DecodeParserType
 	parser = DecodeParserType.new(url)
 	track = parser.parse(url)
 	track.set_metadata(options)
-elsif !options.empty? && options[:force]
+elsif force
 	# Invalid url but there are options we can use
 	track = SpiderTrack.new(url: url)
 	track.set_metadata(options)

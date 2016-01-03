@@ -21,46 +21,43 @@ end
 
 class SpiderTrack
 	def initialize(metadata={})
-		# Maybe I ought to make these fields all in a hash
-		@source = nil
-		@title = ""
-		@artist = ""
-		@url = ""
-		@art_url = ""
-		@duration_ms = 0
+		@metadata = {
+			source: nil,
+			title: "",
+			artist: "",
+			url: "",
+			art_url: "",
+			duration_ms: 0
+		}
 		self.set_metadata(metadata)
 	end
 
 	def set_metadata(metadata={})
-		@title = metadata[:title] || @title
-		@artist = metadata[:artist] || @artist
-		@url = metadata[:url] || @url
-		@art_url = metadata[:art_url] || @art_url
-		@duration_ms = metadata[:duration_ms] || @duration_ms
+		@metadata = @metadata.merge(metadata)
 	end
 
 	def to_s
-		return @artist + " - " + @title + " (" + @url + ")"
+		return @metadata[:artist] + " - " + @metadata[:title] + " (" + @metadata[:url] + ")"
 	end
 
 	def get_title
-		@title
+		@metadata[:title]
 	end
 
 	def get_artist
-		@artist
+		@metadata[:artist]
 	end
 
-	def get_URL
-		@url
+	def get_url
+		@metadata[:url]
 	end
 
-	def get_art_URL
-		@art_url
+	def get_art_url
+		@metadata[:art_url]
 	end
 
 	def get_duration_ms
-		@duration_ms
+		@metadata[:duration_ms]
 	end
 end
 
