@@ -1,6 +1,7 @@
 # SpiderParser.rb
 
 require "uri"
+require "json"
 
 class SpiderParser
 	def initialize(url)
@@ -38,6 +39,10 @@ class SpiderTrack
 
 	def to_s
 		return @metadata[:artist] + " - " + @metadata[:title] + " (" + @metadata[:url] + ")"
+	end
+
+	def to_json
+		@metadata.to_json
 	end
 
 	def get_title
