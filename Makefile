@@ -1,6 +1,8 @@
 all:
 	# SoundCloud
 	@ruby SpiderJukebox.rb https://soundcloud.com/futuregirlfriendmusic/i-love-you
+	@ruby SpiderJukebox.rb https://soundcloud.com/lonemoon/pandasssss
+	@ruby SpiderJukebox.rb https://soundcloud.com/maltine-record/sets/cyanotype
 	
 	# Youtube
 	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=ABbkd9ueKw8
