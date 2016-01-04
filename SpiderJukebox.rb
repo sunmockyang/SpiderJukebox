@@ -25,6 +25,11 @@ class SpiderJukebox
 		return self.parse(url, options).to_json
 	end
 
+	def self.parse_to_hash(url, options={})
+		track = self.parse(url, options)
+		return (track) ? track.to_hash : {}
+	end
+
 	@@parser_cache = {}
 	def self.get_parser(url)
 		# Find the correct parser type for the url

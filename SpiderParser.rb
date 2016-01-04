@@ -45,6 +45,10 @@ class SpiderTrack
 		@metadata.to_json
 	end
 
+	def to_hash
+		@metadata
+	end
+
 	def get_title
 		@metadata[:title]
 	end
