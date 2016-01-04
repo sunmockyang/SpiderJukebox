@@ -16,7 +16,7 @@ class SpiderParser
 	end
 
 	def parse(url)
-		return SpiderTrack.new("", "", url, "", 0)
+		return SpiderTrack.new
 	end
 end
 
