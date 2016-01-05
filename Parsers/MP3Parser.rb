@@ -26,12 +26,12 @@ class MP3Parser < SpiderParser
 	end
 
 	private
-		@@id3v1_tag_size = 128
-		@@id3v2_tag_size = 256000 # arbitrary length
+		@@ID3V1_TAG_SIZE = 128
+		@@ID3V2_TAG_SIZE = 256000 # arbitrary length
 
 		# Tag at start of file
 		def parse_id3v2(url)
-			return range_request_metadata(url, (0..@@id3v2_tag_size))
+			return range_request_metadata(url, (0..@@ID3V2_TAG_SIZE))
 		end
 
 		# Tag at end of file
@@ -41,17 +41,12 @@ class MP3Parser < SpiderParser
 			# and the following can be uncommented
 			metadata = range_request_metadata(url, 0)
 
-			# file_size = 0
 			# metadata = {}
 			# mp3_url = URI.parse(url)
+			# file_size = get_file_size(mp3_url)
 
-			# Net::HTTP.start(mp3_url.host, 80) do |http|
-			# 	response = http.request_head(parse_full_path(mp3_url))
-			# 	file_size = response['content-length'].to_i
-			# end
-
-			# if file_size > @@id3v1_tag_size
-			# 	metadata = range_request_metadata(url, ((file_size - @@id3v1_tag_size)..file_size))
+			# if file_size > @@ID3V1_TAG_SIZE
+			# 	metadata = range_request_metadata(url, ((file_size - @@ID3V1_TAG_SIZE)..file_size))
 			# end
 
 			return metadata
@@ -64,12 +59,19 @@ class MP3Parser < SpiderParser
 			req.range = range
 			res = http.request(req)
 			metadata = {}
+			file_size = get_file_size(mp3_url)
 
 			Mp3Info.open( StringIO.open(res.body) ) do |mp3|  #do the parsing
 			    metadata[:title] = mp3.tag.title 
 			    metadata[:album] = mp3.tag.album 
 			    metadata[:artist] = mp3.tag.artist
-			    metadata[:length] = mp3.length * 1000
+
+			    # don't know how well this will work...
+			    if !mp3.tag2.empty?
+			    	metadata[:length] = (file_size - mp3.tag2.io_position) * 8 / mp3.bitrate
+			    else
+			    	metadata[:length] = (file_size - @@ID3V1_TAG_SIZE) * 8 / mp3.bitrate
+			    end
 			end
 
 			return metadata
@@ -77,5 +79,14 @@ class MP3Parser < SpiderParser
 
 		def parse_full_path(uri)
 			return uri.path + ((uri.query) ? ("?" + uri.query) : "") + ((uri.fragment) ? ("#" + uri.fragment) : "")
+		end
+
+		def get_file_size(uri)
+			file_size = 0
+			Net::HTTP.start(uri.host, 80) do |http|
+				response = http.request_head(parse_full_path(uri))
+				file_size = response['content-length'].to_i
+			end
+			return file_size
 		end
 end
