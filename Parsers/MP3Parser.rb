@@ -55,7 +55,10 @@ class MP3Parser < SpiderParser
 		def range_request_metadata(url, range)
 			mp3_url = URI.parse(url)
 			req = Net::HTTP::Get.new(parse_full_path(mp3_url))
-			http = Net::HTTP.new(mp3_url.host, mp3_url.port) 
+			http = Net::HTTP.new(mp3_url.host, mp3_url.port)
+			if mp3_url.scheme == "https"
+				http.use_ssl = true
+			end
 			req.range = range
 			res = http.request(req)
 			metadata = {}
