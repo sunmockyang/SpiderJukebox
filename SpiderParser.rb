@@ -18,6 +18,10 @@ class SpiderParser
 	def parse(url)
 		return SpiderTrack.new
 	end
+
+	def parser_name
+		nil
+	end
 end
 
 class SpiderTrack
