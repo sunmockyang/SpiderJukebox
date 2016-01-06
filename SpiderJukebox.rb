@@ -30,26 +30,27 @@ class SpiderJukebox
 		return (track) ? track.to_hash : {}
 	end
 
-	@@parser_cache = {}
-	def self.get_parser(url)
-		# Find the correct parser type for the url
-		decode_parser_type = SpiderParser.descendants.select{|available_parser| available_parser.can_parse?(url)}.first
-		parser = nil
-		
-		if !decode_parser_type.nil?
-			# Cache parser if an instance doesn't exist
-			if !@@parser_cache.has_key?(decode_parser_type)
-				@@parser_cache[decode_parser_type] = decode_parser_type.new(url)
+	private
+		@@parser_cache = {}
+		def self.get_parser(url)
+			# Find the correct parser type for the url
+			decode_parser_type = SpiderParser.descendants.select{|available_parser| available_parser.can_parse?(url)}.first
+			parser = nil
+			
+			if !decode_parser_type.nil?
+				# Cache parser if an instance doesn't exist
+				if !@@parser_cache.has_key?(decode_parser_type)
+					@@parser_cache[decode_parser_type] = decode_parser_type.new(url)
+				end
+				parser = @@parser_cache[decode_parser_type]
 			end
-			parser = @@parser_cache[decode_parser_type]
+
+			return parser
 		end
 
-		return parser
-	end
-
-	def self.clear_parser_cache
-		@@parser_cache.clear
-	end
+		def self.clear_parser_cache
+			@@parser_cache.clear
+		end
 end
 
 # For use with command line args
