@@ -30,6 +30,10 @@ class MP3Parser < SpiderParser
 		return SpiderTrack.new(metadata)
 	end
 
+	def parser_name
+		"MP3"
+	end
+
 	private
 		ID3v1tagSize = 128 * 10
 		ID3v2tagSize = 6
