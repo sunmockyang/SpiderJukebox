@@ -34,7 +34,7 @@ class SpiderTrack
 	end
 
 	def set_metadata(metadata={})
-		@metadata = @metadata.merge(metadata)
+		@metadata = @metadata.merge(metadata){|key, oldval, newval| (!newval.nil?) ? newval : oldval}
 	end
 
 	def to_s
@@ -71,3 +71,4 @@ class SpiderTrack
 end
 
 require_relative "Parsers/SoundCloudParser"
+require_relative "Parsers/MP3Parser"
