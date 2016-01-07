@@ -11,16 +11,16 @@ class SpiderParser
 		ObjectSpace.each_object(Class).select { |klass| klass < self }
 	end
 
+	def self.parser_name
+		nil
+	end
+
 	def self.can_parse?(url)
 		return false
 	end
 
 	def parse(url)
 		return SpiderTrack.new
-	end
-
-	def parser_name
-		nil
 	end
 end
 

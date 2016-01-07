@@ -14,7 +14,8 @@ Specific options:
 -a, --artist=ARTIST              Override the artist of the track.
 -r, --album_art=ALBUMART         Override the album art url of the track.
 -d, --duration=DURATION          Override the duration (ms) of the track.
--f, --force                      Force create track without valid url
+-f, --force                      Force create track without valid url.
+-p, --parser_type=PARSERTYPE     Specify a parser to decode the provided url.
 -h, --help                       Show this message
 ```
 Outputs a formatted string (I'll add an option so that it'll spit out JSON). Check out the `Makefile` to see it in use.
@@ -34,8 +35,9 @@ url: "", # Provided url
 art_url: "", # Album cover art url
 duration_ms: 0, # Duration of the media
 force: false # When set to true, a track will be output with the above metdata despite no valid parser being found
+parser_name: nil # Name of the parser that the url should be parsed with.
 ```
-All options above can be set in the options argument and will override the output track's metadata, except `:force`.
+All options above can be set in the options argument and will override the output track's metadata, except `:force`, and `:parser_name`.
 
 #### Examples
 ##### Get metadata from url

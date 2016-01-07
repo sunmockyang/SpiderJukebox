@@ -9,6 +9,10 @@ class MP3Parser < SpiderParser
 	def initialize(url)
 	end
 
+	def self.parser_name
+		"MP3"
+	end
+
 	def self.can_parse?(url)
 		return url.end_with? ".mp3"
 	end
@@ -24,14 +28,10 @@ class MP3Parser < SpiderParser
 			metadata = parse_id3v2(url)
 		end
 
-		metadata[:source] = parser_name
+		metadata[:source] = MP3Parser.parser_name
 		metadata[:url] = url
 
 		return SpiderTrack.new(metadata)
-	end
-
-	def parser_name
-		"MP3"
 	end
 
 	private
@@ -86,10 +86,12 @@ class MP3Parser < SpiderParser
 				metadata[:artist] = mp3.tag.artist
 
 				# don't know how well this will work...
-				if !mp3.tag2.empty?
-					metadata[:length] = (file_size - buffer.length) * 8 / mp3.bitrate
-				else
-					metadata[:length] = (file_size - ID3v1tagSize) * 8 / mp3.bitrate
+				if file_size > 0
+					if !mp3.tag2.empty?
+						metadata[:duration_ms] = (file_size - buffer.length) * 8 / mp3.bitrate
+					else
+						metadata[:duration_ms] = (file_size - ID3v1tagSize) * 8 / mp3.bitrate
+					end
 				end
 			end
 
@@ -101,7 +103,7 @@ class MP3Parser < SpiderParser
 			Net::HTTP.version_1_2 
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = uri.scheme == "https"
-			resp = http.get( url , {'Range' => "bytes=#{range.begin}-#{range.end}"} )                                                                     
+			resp = http.get(url, {'Range' => "bytes=#{range.begin}-#{range.end}"} )
 			resp_code = resp.code.to_i
 			if (resp_code >= 200 && resp_code < 300) then
 				return resp.body

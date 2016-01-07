@@ -16,4 +16,5 @@ all:
 	@ruby SpiderJukebox.rb https://soundcloud.com/futuregirlfriendmusic/i-love-you --title "Song of my People" --artist "Sunmock Yang"
 	@ruby SpiderJukebox.rb -t "Bad Song" -a Unknown http://asdf.com
 	@ruby SpiderJukebox.rb -f -t "Bad Song" -a Unknown http://asdf.com
+	@ruby SpiderJukebox.rb -t "\"This file has no metadata\"" -a "\"Test for -p flag\"" -p MP3 https://archive.org/download/testmp3testfile/testmp3testfile_64kb.m3u
 	# @ruby SpiderJukebox.rb -h

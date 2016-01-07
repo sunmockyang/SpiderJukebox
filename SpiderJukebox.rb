@@ -5,8 +5,9 @@ class SpiderJukebox
 	def self.parse(url, options={})
 		track = nil
 		force = options.delete(:force)
+		parser_name = options.delete(:parser_name)
 
-		decode_parser = self.get_parser(url)
+		decode_parser = (parser_name.nil?) ? self.get_parser_from_url(url) : self.get_parser_by_name(parser_name, url)
 		if decode_parser # Valid parser found in Parsers/*.rb
 			parser = decode_parser
 			track = parser.parse(url)
@@ -32,19 +33,26 @@ class SpiderJukebox
 
 	private
 		@@parser_cache = {}
-		def self.get_parser(url)
+		def self.get_parser_from_url(url)
 			# Find the correct parser type for the url
 			decode_parser_type = SpiderParser.descendants.select{|available_parser| available_parser.can_parse?(url)}.first
-			parser = nil
-			
-			if !decode_parser_type.nil?
-				# Cache parser if an instance doesn't exist
-				if !@@parser_cache.has_key?(decode_parser_type)
-					@@parser_cache[decode_parser_type] = decode_parser_type.new(url)
-				end
-				parser = @@parser_cache[decode_parser_type]
-			end
+			return get_parser_from_cache(decode_parser_type, url)
+		end
 
+		def self.get_parser_by_name(name, url)
+			decode_parser_type = SpiderParser.descendants.select{|parser| parser.parser_name == name}.first
+			return get_parser_from_cache(decode_parser_type, url)
+		end
+
+		def self.get_parser_from_cache(parser_type, url)
+			parser = nil
+			if !parser_type.nil?
+				# Cache parser if an instance doesn't exist
+				if !@@parser_cache.has_key?(parser_type)
+					@@parser_cache[parser_type] = parser_type.new(url)
+				end
+				parser = @@parser_cache[parser_type]
+			end
 			return parser
 		end
 
@@ -62,6 +70,7 @@ if ARGV.empty?
 end
 
 options = {}
+parser_type = nil
 OptionParser.new do |opts|
 	opts.banner = usage_banner
 	opts.separator ""
@@ -72,6 +81,7 @@ OptionParser.new do |opts|
 	opts.on('-r', '--album_art=ALBUMART', "Override the album art url of the track.") { |art_url| options[:art_url] = art_url }
 	opts.on('-d', '--duration=DURATION', "Override the duration (ms) of the track.") { |duration_ms| options[:duration_ms] = duration_ms }
 	opts.on('-f', '--force', "Force create track without valid url") { options[:force] = true }
+	opts.on('-p', '--parser_type=PARSERTYPE', "Specify a parser to decode the provided url") { |parser_name| options[:parser_name] = parser_name }
 	opts.on_tail("-h", "--help", "Show this message") do
 		puts opts
 		exit
