@@ -15,7 +15,7 @@ class SoundCloudParser < SpiderParser
 	end
 
 	def self.can_parse?(url)
-		return (URI(url).host == "soundcloud.com")
+		return (URI(url).host.end_with?("soundcloud.com"))
 	end
 
 	def parse(url)
