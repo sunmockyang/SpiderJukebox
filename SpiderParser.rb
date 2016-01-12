@@ -74,5 +74,6 @@ class SpiderTrack
 	end
 end
 
+require_relative "Parsers/OEmbedParser"
 require_relative "Parsers/SoundCloudParser"
 require_relative "Parsers/MP3Parser"
