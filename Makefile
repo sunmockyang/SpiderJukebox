@@ -1,4 +1,4 @@
-all: soundcloud mp3 youtube flags
+all: soundcloud mp3 youtube oembed flags
 
 soundcloud:
 	@ruby SpiderJukebox.rb https://soundcloud.com/futuregirlfriendmusic/i-love-you
@@ -12,6 +12,10 @@ mp3:
 
 youtube:
 	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=ABbkd9ueKw8
+
+oembed:
+	@ruby SpiderJukebox.rb "http://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=l3NoYyNKSXQ&format=json"
+	@ruby SpiderJukebox.rb "https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fforss%2Fflickermood&format=json"
 
 flags:
 	@ruby SpiderJukebox.rb https://soundcloud.com/futuregirlfriendmusic/i-love-you --title "Song of my People" --artist "Sunmock Yang"
