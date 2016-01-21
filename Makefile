@@ -13,6 +13,7 @@ mp3:
 youtube:
 	@ruby SpiderJukebox.rb https://youtu.be/VyJkKn7A1w0
 	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=l3NoYyNKSXQ
+	@ruby SpiderJukebox.rb https://youtu.be/HZXTWXnBOWA
 
 oembed:
 	@ruby SpiderJukebox.rb "http://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=l3NoYyNKSXQ&format=json"

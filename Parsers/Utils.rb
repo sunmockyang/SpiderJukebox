@@ -13,11 +13,15 @@ class Utils
 	end
 
 	def self.parse_title_artist_from_title(title)
-		if title.include?(" - ")
-			metadata = title.split(" - ")
-		elsif title.include?(" / ")
-			metadata = title.split(" / ")
-		end
+		separators = [" - ", " / ", " /"]
+		metadata = [title, ""]
+
+		separators.each { |separator|
+			if title.include?(separator)
+				metadata = title.split(separator)
+				break
+			end
+		}
 
 		return {artist: metadata[0].lstrip.rstrip, title: metadata[1].lstrip.rstrip}
 	end
