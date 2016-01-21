@@ -90,5 +90,5 @@ end.parse!
 
 url = ARGV[0] || ""
 if url || !options.empty?
-	puts SpiderJukebox.parse(url, options)
+	puts SpiderJukebox.parse(url, options).to_json
 end

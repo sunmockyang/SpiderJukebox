@@ -13,7 +13,7 @@ class Utils
 	end
 
 	def self.parse_title_artist_from_title(title)
-		separators = [" - ", " / ", " /"]
+		separators = [" - ", " / ", " /", "　－　"]
 		metadata = [title, ""]
 
 		separators.each { |separator|

@@ -14,6 +14,7 @@ youtube:
 	@ruby SpiderJukebox.rb https://youtu.be/VyJkKn7A1w0
 	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=l3NoYyNKSXQ
 	@ruby SpiderJukebox.rb https://youtu.be/HZXTWXnBOWA
+	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=3iWh0KbLtDw
 
 oembed:
 	@ruby SpiderJukebox.rb "http://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=l3NoYyNKSXQ&format=json"
