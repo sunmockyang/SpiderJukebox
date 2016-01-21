@@ -4,15 +4,15 @@ require "uri"
 require "json"
 
 class SpiderParser
-	def initialize(url)
+	def initialize
+	end
+
+	def parser_name
+		nil
 	end
 
 	def self.descendants
 		ObjectSpace.each_object(Class).select { |klass| klass < self }
-	end
-
-	def self.parser_name
-		nil
 	end
 
 	def self.can_parse?(url)

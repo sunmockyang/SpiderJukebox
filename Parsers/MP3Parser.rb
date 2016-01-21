@@ -5,11 +5,10 @@ require 'uri'
 require 'mp3info'
 
 class MP3Parser < SpiderParser
-
-	def initialize(url)
+	def initialize
 	end
 
-	def self.parser_name
+	def parser_name
 		"MP3"
 	end
 
@@ -28,7 +27,7 @@ class MP3Parser < SpiderParser
 			metadata = parse_id3v2(url)
 		end
 
-		metadata[:source] = MP3Parser.parser_name
+		metadata[:source] = parser_name
 		metadata[:url] = url
 
 		return SpiderTrack.new(metadata)

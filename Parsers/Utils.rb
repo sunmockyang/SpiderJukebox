@@ -14,6 +14,6 @@ class Utils
 
 	def self.parse_title_artist_from_title(title)
 		metadata = title.split(" - ")
-		return {artist: metadata[0], title: metadata[1]}
+		return {artist: metadata[0].lstrip.rstrip, title: metadata[1].lstrip.rstrip}
 	end
 end

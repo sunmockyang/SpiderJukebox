@@ -49,7 +49,7 @@ class SpiderJukebox
 			if !parser_type.nil?
 				# Cache parser if an instance doesn't exist
 				if !@@parser_cache.has_key?(parser_type)
-					@@parser_cache[parser_type] = parser_type.new(url)
+					@@parser_cache[parser_type] = parser_type.new
 				end
 				parser = @@parser_cache[parser_type]
 			end
