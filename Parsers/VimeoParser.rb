@@ -6,7 +6,7 @@ class VimeoParser < OEmbedParser
 		@api_endpoint = "https://vimeo.com/api/oembed.json"
 	end
 
-	def parser_name
+	def self.parser_name
 		"Vimeo"
 	end
 

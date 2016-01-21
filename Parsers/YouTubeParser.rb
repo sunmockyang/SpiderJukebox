@@ -6,7 +6,7 @@ class YouTubeParser < OEmbedParser
 		@api_endpoint = "http://www.youtube.com/oembed"
 	end
 
-	def parser_name
+	def self.parser_name
 		"YouTube"
 	end
 

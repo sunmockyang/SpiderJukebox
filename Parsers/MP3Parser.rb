@@ -8,7 +8,7 @@ class MP3Parser < SpiderParser
 	def initialize
 	end
 
-	def parser_name
+	def self.parser_name
 		"MP3"
 	end
 
@@ -27,7 +27,7 @@ class MP3Parser < SpiderParser
 			metadata = parse_id3v2(url)
 		end
 
-		metadata[:source] = parser_name
+		metadata[:source] = MP3Parser.parser_name
 		metadata[:url] = url
 
 		return SpiderTrack.new(metadata)

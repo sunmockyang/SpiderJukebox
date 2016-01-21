@@ -6,7 +6,7 @@ class SoundCloudParser < OEmbedParser
 		@api_endpoint = "https://soundcloud.com/oembed"
 	end
 
-	def parser_name
+	def self.parser_name
 		"SoundCloud"
 	end
 

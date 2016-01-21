@@ -6,7 +6,7 @@ class OEmbedParser < SpiderParser
 		@api_endpoint = nil
 	end
 
-	def parser_name
+	def self.parser_name
 		"OEmbed"
 	end
 
@@ -43,8 +43,7 @@ class OEmbedParser < SpiderParser
 			title = oembed["title"]
 			artist = oembed["author_name"]
 		end
-
-		return SpiderTrack.new(source: "oEmbed:#{parser_name}",
+		return SpiderTrack.new(source: "oEmbed:#{oembed["provider_name"]}",
 								title: title,
 								artist: artist,
 								url:url,
