@@ -11,7 +11,7 @@ class YouTubeParser < OEmbedParser
 	end
 
 	def self.can_parse?(url)
-		return (URI(url).host.end_with?("youtube.com"))
+		return (URI(url).host.end_with?("youtube.com")) || (URI(url).host.end_with?("youtu.be"))
 	end
 
 	def explode_title_and_artist?

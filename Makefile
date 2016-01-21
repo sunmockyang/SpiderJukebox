@@ -11,7 +11,7 @@ mp3:
 	@ruby SpiderJukebox.rb "http://web.ist.utl.pt/antonio.afonso/www.aadsm.net/libraries/id3/music/Bruno_Walter_-_01_-_Beethoven_Symphony_No_1_Menuetto.mp3"
 
 youtube:
-	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=ABbkd9ueKw8
+	@ruby SpiderJukebox.rb https://youtu.be/VyJkKn7A1w0
 	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=l3NoYyNKSXQ
 
 oembed:
