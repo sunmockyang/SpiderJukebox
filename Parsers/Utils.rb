@@ -13,7 +13,12 @@ class Utils
 	end
 
 	def self.parse_title_artist_from_title(title)
-		metadata = title.split(" - ")
+		if title.include?(" - ")
+			metadata = title.split(" - ")
+		elsif title.include?(" / ")
+			metadata = title.split(" / ")
+		end
+
 		return {artist: metadata[0].lstrip.rstrip, title: metadata[1].lstrip.rstrip}
 	end
 end

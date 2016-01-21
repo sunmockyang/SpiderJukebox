@@ -12,10 +12,14 @@ mp3:
 
 youtube:
 	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=ABbkd9ueKw8
+	@ruby SpiderJukebox.rb https://www.youtube.com/watch?v=l3NoYyNKSXQ
 
 oembed:
 	@ruby SpiderJukebox.rb "http://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=l3NoYyNKSXQ&format=json"
 	@ruby SpiderJukebox.rb "https://soundcloud.com/oembed?url=https%3A%2F%2Fsoundcloud.com%2Fforss%2Fflickermood&format=json"
+
+vimeo:
+	@ruby SpiderJukebox.rb "https://vimeo.com/114099080"
 
 flags:
 	@ruby SpiderJukebox.rb https://soundcloud.com/futuregirlfriendmusic/i-love-you --title "Song of my People" --artist "Sunmock Yang"

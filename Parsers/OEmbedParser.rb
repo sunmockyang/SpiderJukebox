@@ -49,6 +49,6 @@ class OEmbedParser < SpiderParser
 								artist: artist,
 								url:url,
 								art_url:oembed["thumbnail_url"],
-								duration: oembed["duration"])
+								duration_ms: oembed["duration"])
 	end
 end

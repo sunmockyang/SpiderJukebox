@@ -77,4 +77,5 @@ end
 require_relative "Parsers/OEmbedParser"
 require_relative "Parsers/SoundCloudParser"
 require_relative "Parsers/YouTubeParser"
+require_relative "Parsers/VimeoParser"
 require_relative "Parsers/MP3Parser"
