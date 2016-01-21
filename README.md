@@ -3,7 +3,7 @@ Simply put, a cross-service music metadata interface. Spiders manipulate web and
 
 ## Usage
 You provide SpiderJukebox with a url for audio, and optionally specific metadata to override the audio's metadata and it will return metadata that was parsed from the url.
-##### Note: Some/all of the parsers need a developer API key to access their APIs. You will need to obtain API keys for your usage.
+##### ~~Note: Some/all of the parsers need a developer API key to access their APIs. You will need to obtain API keys for your usage.~~
 ### Command line
 ``` bash
 ruby SpiderJukebox.rb [url] [options]
@@ -62,7 +62,6 @@ SpiderJukebox.parse("http://invalid-url-dot-com", artist: "Unknown", title: "Bad
 * I'll expand on this some other day, but in the meantime, look at the `SpiderParser` class in `SpiderParser.rb` and you'll find an interface you can use.
 * So far `SoundCloudParser` is the only parser that's been implemented. See this for help
 * Parser wishlist:
-  * Youtube
   * Bandcamp
   * Any other services you'd normally use
 * My vision for this is that people will fork this repo and make their own parsers that they can merge in through PRs to extend the Jukebox.
