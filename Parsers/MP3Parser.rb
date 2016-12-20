@@ -27,10 +27,15 @@ class MP3Parser < SpiderParser
 			metadata = parse_id3v2(url)
 		end
 
-		metadata[:source] = MP3Parser.parser_name
-		metadata[:url] = url
+		track = nil
 
-		return SpiderTrack.new(metadata)
+		if (!metadata.empty?)
+			metadata[:source] = MP3Parser.parser_name
+			metadata[:url] = url
+			track = SpiderTrack.new(metadata)
+		end
+
+		return track
 	end
 
 	private
@@ -98,25 +103,33 @@ class MP3Parser < SpiderParser
 		end
 
 		def request_range(url, range)
-			uri = URI(url)
-			Net::HTTP.version_1_2 
-			http = Net::HTTP.new(uri.host, uri.port)
-			http.use_ssl = uri.scheme == "https"
-			resp = http.get(url, {'Range' => "bytes=#{range.begin}-#{range.end}"} )
-			resp_code = resp.code.to_i
-			if (resp_code >= 200 && resp_code < 300) then
-				return resp.body
-			else
+			begin
+				uri = URI(url)
+				Net::HTTP.version_1_2 
+				http = Net::HTTP.new(uri.host, uri.port)
+				http.use_ssl = uri.scheme == "https"
+				resp = http.get(url, {'Range' => "bytes=#{range.begin}-#{range.end}"} )
+				resp_code = resp.code.to_i
+				if (resp_code >= 200 && resp_code < 300) then
+					return resp.body
+				else
+					return ''
+				end
+			rescue
 				return ''
 			end
 		end
 
 		def request_file_size(url)
-			uri = URI(url)
-			file_size = 0
-			Net::HTTP.start(uri.host, 80) do |http|
-				response = http.request_head(url)
-				file_size = response['content-length'].to_i
+			begin
+				uri = URI(url)
+				file_size = 0
+				Net::HTTP.start(uri.host, 80) do |http|
+					response = http.request_head(url)
+					file_size = response['content-length'].to_i
+				end
+			rescue
+				file_size = 0
 			end
 			return file_size
 		end

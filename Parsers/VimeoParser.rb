@@ -20,7 +20,9 @@ class VimeoParser < OEmbedParser
 
 	def parse(url)
 		track = super(url)
-		track.set_metadata({duration_ms: track.get_duration_ms * 1000})
+		if (!track.nil?)
+			track.set_metadata({duration_ms: track.get_duration_ms * 1000})
+		end
 		return track
 	end
 end

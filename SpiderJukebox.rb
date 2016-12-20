@@ -8,15 +8,18 @@ class SpiderJukebox
 		parser_name = options.delete(:parser_name)
 
 		decode_parser = (parser_name.nil?) ? self.get_parser_from_url(url) : self.get_parser_by_name(parser_name, url)
+		
 		if decode_parser # Valid parser found in Parsers/*.rb
 			parser = decode_parser
 			track = parser.parse(url)
-			track.set_metadata(options)
-		elsif force # No valid parsers found, but force create track based on options
+		elsif force && !options.empty? # No valid parsers found, but force create track based on options
 			track = SpiderTrack.new(url: url)
-			track.set_metadata(options)
 		else # TODO: add verbose option
-			puts "No available parsers for: " + url
+			# puts "No available parsers for: " + url
+		end
+
+		if (!track.nil?)
+			track.set_metadata(options)
 		end
 
 		return track
@@ -35,12 +38,12 @@ class SpiderJukebox
 		@@parser_cache = {}
 		def self.get_parser_from_url(url)
 			# Find the correct parser type for the url
-			decode_parser_type = SpiderParser.descendants.select{|available_parser| available_parser.can_parse?(url)}.first
+			decode_parser_type = ParserList.select{|available_parser| available_parser.can_parse?(url)}.first
 			return get_parser_from_cache(decode_parser_type, url)
 		end
 
 		def self.get_parser_by_name(name, url)
-			decode_parser_type = SpiderParser.descendants.select{|parser| parser.parser_name == name}.first
+			decode_parser_type = ParserList.select{|parser| parser.parser_name == name}.first
 			return get_parser_from_cache(decode_parser_type, url)
 		end
 
@@ -90,5 +93,10 @@ end.parse!
 
 url = ARGV[0] || ""
 if url || !options.empty?
-	puts SpiderJukebox.parse(url, options).to_json
+	track = SpiderJukebox.parse(url, options)
+	if track.nil?
+		puts "Unable to parse #{url}"
+	else
+		puts track
+	end
 end

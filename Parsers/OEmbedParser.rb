@@ -33,21 +33,25 @@ class OEmbedParser < SpiderParser
 	def parse(url)
 		oembed = oembed_request(@api_endpoint, url)
 
-		title = ""
-		artist = ""
-		if explode_title_and_artist?
-			title_artist = Utils.parse_title_artist_from_title(oembed["title"])
-			title = title_artist[:title]
-			artist = title_artist[:artist]
+		if !oembed.nil?
+			title = ""
+			artist = ""
+			if explode_title_and_artist?
+				title_artist = Utils.parse_title_artist_from_title(oembed["title"])
+				title = title_artist[:title]
+				artist = title_artist[:artist]
+			else
+				title = oembed["title"]
+				artist = oembed["author_name"]
+			end
+			return SpiderTrack.new(source: "oEmbed:#{oembed["provider_name"]}",
+									title: title,
+									artist: artist,
+									url:url,
+									art_url:oembed["thumbnail_url"],
+									duration_ms: oembed["duration"])
 		else
-			title = oembed["title"]
-			artist = oembed["author_name"]
+			return nil
 		end
-		return SpiderTrack.new(source: "oEmbed:#{oembed["provider_name"]}",
-								title: title,
-								artist: artist,
-								url:url,
-								art_url:oembed["thumbnail_url"],
-								duration_ms: oembed["duration"])
 	end
 end

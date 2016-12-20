@@ -3,16 +3,21 @@
 require "uri"
 require "json"
 
+# Defines list of parsers and the order they are tried
+ParserList = []
+
 class SpiderParser
 	def initialize
 	end
 
-	def parser_name
-		nil
-	end
+	@@descendants = []
 
 	def self.descendants
-		ObjectSpace.each_object(Class).select { |klass| klass < self }
+		@@descendants
+	end
+
+	def self.set_descendant(class_type)
+		@@descendants.push(class_type) 
 	end
 
 	def self.can_parse?(url)
@@ -79,3 +84,9 @@ require_relative "Parsers/SoundCloudParser"
 require_relative "Parsers/YouTubeParser"
 require_relative "Parsers/VimeoParser"
 require_relative "Parsers/MP3Parser"
+
+ParserList.push(OEmbedParser)
+ParserList.push(SoundCloudParser)
+ParserList.push(YouTubeParser)
+ParserList.push(VimeoParser)
+ParserList.push(MP3Parser)

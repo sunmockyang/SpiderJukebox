@@ -9,7 +9,8 @@ class Utils
 	end
 
 	def self.json_request(url)
-		return JSON.parse(self.http_request(url))
+		resp = self.http_request(url)
+		return (self.valid_json?(resp)) ? JSON.parse(resp) : nil
 	end
 
 	def self.parse_title_artist_from_title(title)
@@ -24,5 +25,14 @@ class Utils
 		}
 
 		return {artist: metadata[0].lstrip.rstrip, title: metadata[1].lstrip.rstrip}
+	end
+
+	def self.valid_json?(json)
+		begin
+			JSON.parse(json)
+			return true
+		rescue Exception => e
+			return false
+		end
 	end
 end
